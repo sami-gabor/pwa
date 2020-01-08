@@ -1,7 +1,19 @@
+const staticCacheName = 'site-static';
+const assets = [
+    '/',
+    '/index.html',
+    '/index.js'
+];
+
 // install service worker
 self.addEventListener('install', evt => {
-    console.log('Service worker has been installed.');
-    
+    // console.log('Service worker has been installed.');
+    evt.waitUntil(
+        caches.open(staticCacheName).then(cache => {
+            console.log('caching shell assets');
+            cache.addAll(assets);
+        })
+    );
 });
 
 // activate event
